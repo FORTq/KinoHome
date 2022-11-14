@@ -1,0 +1,22 @@
+<section class="movie-details-section padding-top padding-bottom">
+    <div class="container">
+        <div class="row justify-content-center flex-wrap-reverse mb--50">
+            <div class="col-lg-3 col-sm-10 col-md-6 mb-50">
+
+                <div class="widget-1 widget-offer"><h3 class="title">Предложения</h3>
+                    <div class="offer-body">
+                        {% for item in sidebar %}
+                        <div class="offer-item">
+                        {% if item.photo %}
+                            <div class="thumb"><img src="{{ item.photo.url }}" alt="sidebar"></div>
+                        {% endif %}
+                            <div class="content"><h6><a href="#0">{{ item.title }}</a></h6>
+                                <p>{{ item.content }}</p></div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="widget-1 widget-banner">
+
+                    </div>
+            </div>

@@ -1,0 +1,250 @@
+{% extends 'base.html' %}
+{% load menu %}
+{% block title %}{{ post.name }}{% endblock %}
+
+{% block baner %} {% endblock %}
+
+{% block content %}
+
+</header><!-- ==========Header-Section========== --><!-- ==========Banner-Section========== -->
+
+{% if post.photo_background %}
+<section class="details-banner bg_img" data-background="{{ post.photo_background.url }}">
+{% else %}
+<section class="details-banner bg_img" data-background="">
+{% endif %}
+    <div class="container">
+        <div class="details-banner-wrapper">
+            <div class="details-banner-thumb"><img src="{{ post.photo.url }}" alt="movie"></div>
+            <div class="details-banner-content offset-lg-3"><h3 class="title">{{ post.name }}</h3>
+
+                <div class="tags">{% for cont in post.сountry.all %}<a href="{{ cont.get_absolute_url }}">{{ cont.title }}</a>{% endfor %}
+                </div>
+
+                {% for categorys in post.category.all %}
+                <a href="{{ categorys.get_absolute_url }}" class="button">{{ categorys.title }}</a>
+                {% endfor %}
+                <div class="social-and-duration">
+
+                    <div class="padding-top padding-bottom">
+                            <a href="{{ post.urlss }}" class="custom-button">Смотреть</a>
+                        </div>
+                    <div class="duration-area">
+                        <div class="item"><a href="{{ post.production_year.get_absolute_url }}"><i class="fas fa-calendar-alt"></i><span>{{ post.production_year.title }}г.</span></a></div>
+                        <div class="item"><i class="far fa-clock"></i><span>{{ post.time }} min</span></div>
+                    </div>
+
+                    {% if request.user.is_authenticated %}
+                    {% if favorite_1 == False %}
+                        <div class="padding-top-padding-bottom">
+                    {% else %}
+                        <div class="padding-top-padding-bottom hidden">
+                    {% endif %}
+                            <form id="form_add_favorite" class="form-inline" action="{% url 'add_favorite' %}">
+                                {% csrf_token %}
+                            <button type="submit" id="submit_btn" class="custom-button back-button"
+                                data-kino_id = "{{ post.id }}"
+                                >
+                                Удалить из Любимых
+                            </button>
+                            </form>
+                    </div>
+                    {% if favorite_1 != False %}
+                        <div class="padding-top-padding-bottom2">
+                    {% else %}
+                        <div class="padding-top-padding-bottom2 hidden">
+                    {% endif %}
+                            <form id="form_add_favorite2" class="form-inline" action="{% url 'add_favorite' %}">
+                                {% csrf_token %}
+                            <button type="submit" id="submit_btn2" class="custom-button back-button"
+                                data-kino_id = "{{ post.id }}"
+                                >
+                                Добавить в Любимые
+                            </button>
+                            </form>
+                    </div>
+
+                {% if plan_1 == False %}
+                        <div class="padding-top-padding-bottom3">
+                    {% else %}
+                        <div class="padding-top-padding-bottom3 hidden">
+                    {% endif %}
+                            <form id="form_add_plan" class="form-inline" action="{% url 'add_favorite' %}">
+                                {% csrf_token %}
+                            <button type="submit" id="submit_btn3" class="custom-button back-button"
+                                data-kino_id = "{{ post.id }}"
+                                >
+                                Удалить из Планов
+                            </button>
+                            </form>
+                    </div>
+                    {% if plan_1 != False %}
+                        <div class="padding-top-padding-bottom4">
+                    {% else %}
+                        <div class="padding-top-padding-bottom4 hidden">
+                    {% endif %}
+                            <form id="form_add_plan2" class="form-inline" action="{% url 'add_favorite' %}">
+                                {% csrf_token %}
+                            <button type="submit" id="submit_btn4" class="custom-button back-button"
+                                data-kino_id = "{{ post.id }}"
+                                >
+                                Добавить в Планы
+                            </button>
+                            </form>
+                    </div>
+                {% else %}
+                        <div class="padding-top-padding-bottom">
+                            <form id="form" class="form-inline" action="{% url 'login' %}">
+                            <button type="" id="submit_btn" class="custom-button back-button">Добавить в Любимое</button>
+                            </form>
+                        </div>
+                        <div class="padding-top-padding-bottom4">
+                            <form id="form" class="form-inline" action="{% url 'login' %}">
+                                <button type="" id="submit_btn" class="custom-button back-button">Добавить в Планы</button>
+                            </form>
+                        </div>
+                {% endif %}
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section><!-- ==========Banner-Section========== --><!-- ==========Book-Section========== -->
+<!-- ==========Book-Section========== --><!-- ==========Movie-Section========== -->
+         {% snow_sidebar %}
+
+            <div class="col-lg-9 mb-50">
+                <div class="movie-details"><h3 class="title">photos</h3>
+                    <div class="details-photos owl-carousel">
+                        {% if post.photos %}
+                        <div class="thumb"><a href=".{{ post.photos.url }}" class="img-pop"><img
+                                src="{{ post.photos.url }}" alt="movie"></a></div>
+                        {% else %}
+                        <div class="thumb"><a href="https://upload.wikimedia.org/wikipedia/ru/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png" class="img-pop"><img
+                                src="https://upload.wikimedia.org/wikipedia/ru/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png" alt="movie"></a></div>
+                        {% endif %}
+                        {% if post.photos2 %}
+                        <div class="thumb"><a href="{{ post.photos2.url }}" class="img-pop"><img
+                                src="{{ post.photos2.url }}" alt="movie"></a></div>
+                        {% else %}
+                        <div class="thumb"><a href="https://upload.wikimedia.org/wikipedia/ru/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png" class="img-pop"><img
+                                src="https://upload.wikimedia.org/wikipedia/ru/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png" alt="movie"></a></div>
+                        {% endif %}
+                        {% if post.photo3 %}
+                        <div class="thumb"><a href="{{ post.photos3.url }}" class="img-pop"><img
+                                src="{{ post.photos3.url }}" alt="movie"></a></div>
+                        {% else %}
+                        <div class="thumb"><a href="https://upload.wikimedia.org/wikipedia/ru/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png" class="img-pop"><img
+                                src="https://upload.wikimedia.org/wikipedia/ru/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png" alt="movie"></a></div>
+                        {% endif %}
+                    </div>
+                    <div class="tab summery-review">
+                        <ul class="tab-menu">
+                            <li class="active">Трейлер</li>
+                            <li>Подробнее</li>
+                        </ul>
+                        <div class="tab-area">
+                            <div class="tab-item active">
+                                        <div class="movie-review-item">
+                                            <div class="author">
+                                                <iframe width="950" height="630" src="{{ post.trailer }}?modestbranding=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                            </div>
+                                        </div>
+
+                            </div>
+                            <div class="tab-item">
+
+
+
+                                <div class="item"><h5 class="sub-title">Описание</h5>
+
+                                    <p>{{ post.content }}</p></div>
+                                <div class="item">
+
+                                    <div class="header"><h5 class="sub-title">Сценарий</h5>
+                                        <div class="navigation">
+                                            <div class="cast-prev"><i class="flaticon-double-right-arrows-angles"></i>
+                                            </div>
+                                            <div class="cast-next"><i class="flaticon-double-right-arrows-angles"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="casting-slider owl-carousel">
+                                        {% for scenar in post.scenario.all %}
+                                        <div class="cast-item">
+                                            <div class="cast-thumb"><a href="{{ scenar.get_absolute_url }}">
+                                                    {% if scenar.photo %}
+                                                    <img src="{{ scenar.photo.url }}" alt="cast"></a></div>
+                                                    {% else %}
+                                                    <img src="https://us.123rf.com/450wm/get4net/get4net1812/get4net181201223/127174831-anonymous-faceless-user.jpg?ver=6" alt="cast"></div>
+                                                    {% endif %}
+                                            <div class="cast-content"><h6 class="cast-title"><a href="{{ scenar.get_absolute_url }}">{{ scenar.title }}</a>
+                                            </h6><span class="cate">Сценарист</span>
+                                                </div>
+                                        </div>
+                                        {% endfor %}
+
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="header"><h5 class="sub-title">Режисер</h5>
+
+                                    </div>
+                                    {% for authors in post.author.all %}
+                                    <div class="">
+
+                                        <div class="cast-item">
+                                            <div class="cast-thumb"><a href="{{ authors.get_absolute_url }}">
+                                                {% if authors.photo %}
+                                                    <img src="{{ authors.photo.url }}" alt="cast"></a></div>
+                                                    {% else %}
+                                                    <img src="https://us.123rf.com/450wm/get4net/get4net1812/get4net181201223/127174831-anonymous-faceless-user.jpg?ver=6" alt="cast"></div>
+                                                    {% endif %}
+                                            <div class="cast-content"><h6 class="cast-title"><a href="{{ authors.get_absolute_url }}">{{ authors.title }}</a></h6><span class="cate">Режисер</span></div>
+                                        </div>
+
+                                    </div>
+                                    {% endfor %}
+
+
+                                    <div class="item">
+                                    <div class="header"><h5 class="sub-title">Продюсер</h5>
+                                        <div class="navigation">
+                                            <div class="cast-prev"><i class="flaticon-double-right-arrows-angles"></i>
+                                            </div>
+                                            <div class="cast-next"><i class="flaticon-double-right-arrows-angles"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="casting-slider owl-carousel">
+                                        {% for prod in post.producer.all %}
+                                        <div class="cast-item">
+                                            <div class="cast-thumb"><a href="{{ prod.get_absolute_url }}">
+                                                {% if prod.photo %}
+                                                    <img src="{{ prod.photo.url }}" alt="cast"></a></div>
+                                                    {% else %}
+                                                    <img src="https://us.123rf.com/450wm/get4net/get4net1812/get4net181201223/127174831-anonymous-faceless-user.jpg?ver=6" alt="cast"></div>
+                                                    {% endif %}
+                                            <div class="cast-content"><h6 class="cast-title"><a href="{{ prod.get_absolute_url }}">{{ prod.title }}</a>
+                                            </h6><span class="cate">Продюсер</span>
+                                                </div>
+                                        </div>
+                                        {% endfor %}
+
+                                    </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!-- ==========Movie-Section========== --><!-- ==========Newslater-Section========== -->
+
+
+{% endblock %}

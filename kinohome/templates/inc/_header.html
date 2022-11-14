@@ -1,0 +1,51 @@
+<header class="header-section">
+    <div class="container">
+        <div class="header-wrapper">
+            <div class="logo"><a href="{% url 'home' %}"><img src="" alt="logo"></a></div>
+            <ul class="menu">
+                <li><a href="{% url 'home' %}" >Главная</a>
+
+                </li>
+                <li><a href="#{% url 'category' %}">Фильмы</a>
+                    <ul class="submenu">
+                        <li><a href="{% url 'category' %}">Все фильмы</a></li>
+                        <li><a href="{% url 'category' %}">Новинки</a></li>
+
+                    </ul>
+                </li>
+
+                <li><a href="{% url 'get_rec' %}">Рекомендации</a></li>
+
+                {% if request.user.is_authenticated %}
+                <li><a href="{% url 'favorite_kino' %}">Любимые</a></li>
+
+
+                <li><a href="{% url 'plan_kino' %}">В планах</a></li>
+
+
+                <li class="header-button pr-0"> <a href="{% url 'logout' %}">Выйти {{ user.username }}</a></li>
+
+                {% else %}
+
+                <li><a href="{% url 'login' %}">Любимые</a></li>
+
+                <li><a href="{% url 'login' %}">В планах</a></li>
+
+
+                <form action="" method="get">
+                    <input name="s" placeholder="Искать здесь..." type="search">
+                    <button type="submit">Поиск</button>
+                </form>
+
+                <li class="header-button pr-0"><a href="{% url 'login' %}">Войти</a></li>
+                {% endif %}
+                    <form action="{% url 'search' %}" method="get">
+                        <input name="q" placeholder="Искать здесь..." type="search">
+                        <button class="hidden" type="submit">Поиск</button>
+                    </form>
+            </ul>
+
+            <div class="header-bar d-lg-none"><span></span><span></span><span></span></div>
+        </div>
+    </div>
+</header><!-- ==========Header-Section========== --><!-- ==========Banner-Section========== -->

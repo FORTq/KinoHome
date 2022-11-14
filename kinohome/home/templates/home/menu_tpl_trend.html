@@ -1,0 +1,9 @@
+<div class="widget-1 widget-trending-search{{ menu_class }}"><h3 class="title">Популярное кино</h3>
+                    <div class="widget-1-body">
+                        <ul>
+                            {% for item in trends1 %}
+                                <li><h6 class="sub-title"><a href="{{ item.get_absolute_url }}">{{ item.list_kino.name }}</a></h6><br>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>

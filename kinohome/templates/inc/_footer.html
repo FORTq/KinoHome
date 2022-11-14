@@ -1,0 +1,34 @@
+<footer class="footer-section">
+    <div class="newslater-section padding-bottom">
+        <div class="container">
+            <div class="newslater-container bg_img" data-background="">
+                <div class="newslater-wrapper"><h5 class="cate">Подпишитесь на </h5>
+                    <h3 class="title">чтобы получить эксклюзивные преимущества</h3>
+                    <form class="newslater-form"  id="form_text_email" action="{% url 'add_emailSub' %}">
+                        {% csrf_token %}
+                        <input type="text_email234" name="text_email234"  id="text_email234" placeholder="Your Email Address">
+                        <button type="submit">подписаться</button>
+                    </form>
+                    <p>Мы уважаем вашу конфиденциальность, поэтому мы не передаем вашу информацию</p></div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="footer-top">
+            <div class="logo"><a href="{% url 'home' %}"><img src="" alt="footer"></a>
+            </div>
+            <ul class="social-icons">
+
+            </ul>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-bottom-area">
+                <div class="left"><p>Copyright © 2020.All Rights Reserved By <a href="http://www.bootstrapmb.com/"> </a>
+                </p></div>
+                <ul class="links">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer><!-- ==========Newslater-Section========== -->

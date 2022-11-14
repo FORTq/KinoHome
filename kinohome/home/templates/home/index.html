@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load menu %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="row flex-wrap-reverse justify-content-center">
+            <div class="col-lg-3 col-sm-10  mt-50 mt-lg-0">
+
+                {% show_menu_trend %}
+
+            </div>
+            <div class="col-lg-9">
+                <div class="article-section padding-bottom">
+                    <div class="section-header-1"><h2 class="title">Фильмы</h2><a class="view-all"
+                                                                                  href="{% url 'category' %}">View All</a>
+                    </div>
+
+                    <div class="row mb-30-none justify-content-center">
+                        {% for post in posts.all %}
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="movie-grid">
+                                <div class="movie-thumb c-thumb"><a href="{{ post.list_kino.get_absolute_url }}"><img
+                                        src="{{ post.list_kino.photo.url }}" alt="movie"></a></div>
+                                <div class="movie-content bg-one"><h5 class="title m-0"><a href="{{ post.list_kino.get_absolute_url }}">{{ post.list_kino.name }}</a></h5>
+                                    <ul class="movie-rating-percent">
+                                        <li>
+
+                                            <span class="content">{{ post.list_kino.grade }}/10</span></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+
+
+
+
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+{% endblock %}

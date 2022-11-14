@@ -1,0 +1,97 @@
+
+{% extends 'base.html' %}
+{% load menu %}
+{% block baner %} {% endblock %}
+{% block content %}
+</section><!-- ==========Ticket-Search========== --><!-- ==========Movie-Section========== -->
+<section class="movie-section padding-top padding-bottom">
+
+    <div class="container">
+    <form action="{% url 'filter' %}" method="get">
+        <div class="row flex-wrap-reverse justify-content-center">
+            <div class="col-sm-10 col-md-8 col-lg-3">
+                <div class="widget-1 widget-check">
+                    <div class="widget-header"><h5 class="m-title">Filter By</h5><a href="{% url 'category' %}" class="clear-check">Clear
+                        All</a></div>
+                </div>
+                <div class="widget-1 widget-check">
+
+                    <div class="widget-1-body"><h6 class="subtitle">Жанры</h6>
+                        <div class="check-area">
+                            {% for genre in view.get_category %}
+                            <div class="form-group checked"><input type="checkbox" value="{{ genre.id }}" name="category" id="genre{{ genre.title }}"><label for="genre{{ genre.title }}">{{ genre.title }}</label></div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                <div class="widget-1 widget-check">
+                    <div class="widget-1-body"><h6 class="subtitle">Года</h6>
+                        <div class="check-area">
+                            {% for yaer in view.get_year %}
+                            <div class="form-group"><input type="checkbox" value="{{ yaer.id }}" name="year" id="mode{{ yaer.title }}"><label
+                                    for="mode{{ yaer.title }}">{{ yaer.title }}</label></div>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+
+
+                    <br><button type="submit" class="custom-button back-button">Найти</button>
+                    </div>
+                </div>
+            </div>
+
+    </form>
+
+
+            <div class="col-lg-9 mb-50 mb-lg-0">
+
+                    <div class="tab-area">
+                        <div class="tab-item active">
+                            <div class="row mb-10 justify-content-center">
+                                {% for post in posts %}
+                                <div class="col-sm-6 col-lg-4">
+                                    <div class="movie-grid">
+                                        <div class="movie-thumb c-thumb"><a href="{{ post.get_absolute_url }}"><img
+                                                src="{{ post.photo.url }}" alt="movie"></a></div>
+                                        <div class="movie-content bg-one"><h5 class="title m-0"><a
+                                                href="{{ post.get_absolute_url }}">{{ post.name }}</a></h5>
+                                            <ul class="movie-rating-percent">
+                                                <li>
+
+                                                    <span class="content">Рейтинг фильма: {{ post.grade }}/10</span></li>
+
+
+                                                   <li> <span class="content">{{ post.content|truncatechars:60 }}</span></li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                {% if page_obj.has_other_pages %}
+                    <div class="pagination-area text-center">
+                    {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-angle-double-left"></i><span></span></a>
+                    {% endif %}
+                        {% for p in paginator.page_range %}
+                        {% if page_obj.number == p %}
+                            <a href="" class="active">{{ p }}</a>
+                        {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+                            <a href="?page={{ p }}">{{ p }}</a>
+                        {% endif %}
+                        {% endfor %}
+                    {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}"><span></span><i class="fas fa-angle-double-right"></i></a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!-- ==========Movie-Section========== --><!-- ==========Newslater-Section========== -->
+{% endblock %}
